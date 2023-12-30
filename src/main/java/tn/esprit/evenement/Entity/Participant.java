@@ -30,6 +30,6 @@ public class Participant implements Serializable {
 
     @JsonIgnore
     @ToString.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     List<Evenement> evenementList=new ArrayList<>();
 }

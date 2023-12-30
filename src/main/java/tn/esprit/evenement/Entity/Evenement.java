@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,23 +22,26 @@ import java.util.List;
 public class Evenement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
-    Integer id;
+    @Column(name ="idEvenement")
+    Integer idEvenement;
 
-    String Description;
 
-    @Temporal(TemporalType.DATE)
-    Date dateDebut,DateFin;
+    String description;
+
+    LocalDate dateDebut;
+
+    LocalDate dateFin;
+
     float cout;
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     List<Logistique> logistiqueList =new ArrayList<>();
 
     @JsonIgnore
     @ToString.Exclude
-    @ManyToMany(mappedBy = "evenementList")
+    @ManyToMany(mappedBy = "evenementList",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Participant> participantList=new ArrayList<>();
 
 }
